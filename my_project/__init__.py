@@ -8,6 +8,7 @@ import os
 from http import HTTPStatus
 import secrets
 from typing import Dict, Any
+from urllib.parse import quote_plus
 
 from flasgger import Swagger
 from flask import Flask, jsonify
@@ -1122,7 +1123,15 @@ def _process_input_config(app_config: Dict[str, Any], additional_config: Dict[st
     :param app_config: Flask configuration
     :param additional_config: additional configuration
     """
+    database_uri = os.getenv(SQLALCHEMY_DATABASE_URI)
+    if database_uri:
+        app_config[SQLALCHEMY_DATABASE_URI] = database_uri
+        return
+
     root_user = os.getenv(MYSQL_ROOT_USER, additional_config[MYSQL_ROOT_USER])
     root_password = os.getenv(MYSQL_ROOT_PASSWORD, additional_config[MYSQL_ROOT_PASSWORD])
-    app_config[SQLALCHEMY_DATABASE_URI] = app_config[SQLALCHEMY_DATABASE_URI].format(root_user, root_password)
+    app_config[SQLALCHEMY_DATABASE_URI] = app_config[SQLALCHEMY_DATABASE_URI].format(
+        quote_plus(root_user),
+        quote_plus(root_password),
+    )
     pass
