@@ -173,14 +173,14 @@ def init_autodoc_swagger(app: Flask) -> None:
     """
     app.config.setdefault("SWAGGER", {
         "uiversion": 3,
-        "title": "Supermarket Display Management API",
+        "title": "123123Supermarket Display Management API",
         "openapi": "3.0.3",
     })
 
     swagger_template = {
         "openapi": "3.0.3",
         "info": {
-            "title": "Supermarket Display Management API",
+            "title": "123123Supermarket Display Management API",
             "version": "1.0.0",
             "description": "A comprehensive API for managing supermarket display panels, advertisements, and related entities",
             "contact": {"name": "Andrii Pavelchak", "email": "apavelchak@gmail.com"},
