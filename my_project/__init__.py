@@ -8,6 +8,7 @@ import os
 from http import HTTPStatus
 import secrets
 from typing import Dict, Any
+from urllib.parse import quote_plus
 
 from flasgger import Swagger
 from flask import Flask, jsonify
@@ -16,6 +17,7 @@ from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy_utils import database_exists, create_database
 
 from my_project.auth.route import register_routes
+from my_project.auth.domain.orders.Chain import Chain
 
 SECRET_KEY = "SECRET_KEY"
 SQLALCHEMY_DATABASE_URI = "SQLALCHEMY_DATABASE_URI"
@@ -1114,6 +1116,9 @@ def _init_db(app: Flask) -> None:
     import my_project.auth.domain
     with app.app_context():
         db.create_all()
+        if db.session.get(Chain, 1) is None:
+            db.session.add(Chain(id=1, name="Default chain"))
+            db.session.commit()
 
 
 def _process_input_config(app_config: Dict[str, Any], additional_config: Dict[str, Any]) -> None:
@@ -1122,7 +1127,18 @@ def _process_input_config(app_config: Dict[str, Any], additional_config: Dict[st
     :param app_config: Flask configuration
     :param additional_config: additional configuration
     """
-    root_user = os.getenv(MYSQL_ROOT_USER, additional_config[MYSQL_ROOT_USER])
-    root_password = os.getenv(MYSQL_ROOT_PASSWORD, additional_config[MYSQL_ROOT_PASSWORD])
-    app_config[SQLALCHEMY_DATABASE_URI] = app_config[SQLALCHEMY_DATABASE_URI].format(root_user, root_password)
+    database_uri = os.getenv(SQLALCHEMY_DATABASE_URI)
+    if database_uri:
+        app_config[SQLALCHEMY_DATABASE_URI] = database_uri
+        return
+
+    root_user = os.getenv(MYSQL_ROOT_USER, additional_config.get(MYSQL_ROOT_USER))
+    root_password = os.getenv(MYSQL_ROOT_PASSWORD, additional_config.get(MYSQL_ROOT_PASSWORD))
+    if not root_user or not root_password:
+        raise ValueError("Set SQLALCHEMY_DATABASE_URI or MYSQL_ROOT_USER and MYSQL_ROOT_PASSWORD")
+
+    app_config[SQLALCHEMY_DATABASE_URI] = app_config[SQLALCHEMY_DATABASE_URI].format(
+        quote_plus(root_user),
+        quote_plus(root_password),
+    )
     pass

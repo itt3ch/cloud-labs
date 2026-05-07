@@ -1,13 +1,14 @@
 COMMON: &common
   DEBUG: False
   SQLALCHEMY_TRACK_MODIFICATIONS: False
+
 development:
+  <<: *common
   DEBUG: True
-  SQLALCHEMY_DATABASE_URI: ${SQLALCHEMY_DATABASE_URI}
+  SQLALCHEMY_DATABASE_URI: 'mysql://{}:{}@superdbyou.mysql.database.azure.com/lab4'
 
 production:
- SQLALCHEMY_DATABASE_URI: ${SQLALCHEMY_DATABASE_URI}
+  <<: *common
+  SQLALCHEMY_DATABASE_URI: 'mysql://{}:{}@superdbyou.mysql.database.azure.com/lab4'
 
-ADDITIONAL_CONFIG:
-  MYSQL_ROOT_USER: ${MYSQL_ROOT_USER}
-  MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+ADDITIONAL_CONFIG: {}
