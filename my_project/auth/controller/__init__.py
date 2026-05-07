@@ -1,0 +1,30 @@
+from my_project.auth.controller.orders.BrandController import BrandController
+from my_project.auth.controller.orders.AdvertisementVideoController import AdvertisementVideoController
+from my_project.auth.controller.orders.ChainController import ChainController
+from my_project.auth.controller.orders.DepartmentController import DepartmentController
+from my_project.auth.controller.orders.PanelController import PanelController
+from my_project.auth.controller.orders.PanelManufacturerController import PanelManufacturerController
+from my_project.auth.controller.orders.PanelVideoController import PanelVideoController
+from my_project.auth.controller.orders.RefreshRateController import RefreshRateController
+from my_project.auth.controller.orders.ResolutionController import ResolutionController
+from my_project.auth.controller.orders.ScreenSizeController import ScreenSizeController
+from my_project.auth.controller.orders.SupermarketAddressController import SupermarketAddressController
+from my_project.auth.controller.orders.SupermarketController import SupermarketController
+from my_project.auth.controller.orders.TechnicalSpecificationsController import TechnicalSpecificationsController
+from my_project.auth.controller.orders.VideoProducerController import VideoProducerController
+
+# Initialize controllers
+brand_controller = BrandController()
+advertisement_video_controller = AdvertisementVideoController()
+chain_controller = ChainController()
+department_controller = DepartmentController()
+panel_controller = PanelController()
+panel_manufacturer_controller = PanelManufacturerController()
+panel_video_controller = PanelVideoController()
+refresh_rate_controller = RefreshRateController()
+resolution_controller = ResolutionController()
+screen_size_controller = ScreenSizeController()
+supermarket_address_controller = SupermarketAddressController()
+supermarket_controller = SupermarketController()
+technical_specifications_controller = TechnicalSpecificationsController()
+video_producer_controller = VideoProducerController()
