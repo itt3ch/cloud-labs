@@ -182,7 +182,7 @@ def init_autodoc_swagger(app: Flask) -> None:
         "info": {
             "title": "123123Supermarket Display Management API",
             "version": "1.0.0",
-            "description": "A comprehensive API for managing supermarket display panels, advertisements, and related entities",
+            "description": "A comprehensive API for managing supermarket display panels, advertisements, and related entities$$$",
             "contact": {"name": "Andrii Pavelchak", "email": "apavelchak@gmail.com"},
             "license": {"name": "MIT"},
         },
